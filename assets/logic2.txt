@@ -1,0 +1,28 @@
+{
+  "slider_images": [
+    "level1_iswhite_pack2",
+    "level2_iswhite_pack2",
+    "level3_iswhite_pack2",
+    "level4_iswhite_pack2",
+    "level5_iswhite_pack2",
+    "level6_iswhite_pack2",
+    "level7_iswhite_pack2",
+    "level8_iswhite_pack2",
+    "level9_iswhite_pack2",
+    "level10_iswhite_pack2",
+
+
+  ], 
+   "level_1": {"colors":["blue","purple","white","red","green"]},
+   "level_2": {"colors":["blue", "grey","orange","red","white"]},
+   "level_3": {"colors":["blue","grey","purple","red","white"]},
+   "level_4": {"colors":["blue","orange","red","white","brown"]},
+   "level_5": {"colors":["blue","red","white","orange","brown"]},
+   "level_6": {"colors":["blue","green","grey","red","white"]},
+   "level_7": {"colors":["blue","grey","orange","purple","white"]},
+   "level_8": {"colors":["blue","green","grey","orange","red","white"]},
+   "level_9": {"colors":["blue","grey","orange","red","white"]},
+   "level_10": {"colors":["green","grey","orange","red","white","blue"]},
+
+  "count": 10
+}

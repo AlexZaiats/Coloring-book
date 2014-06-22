@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slidermainimage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back_slider">"
+        
+    <com.kidsgames.start.MyPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    
+
+<TextView
+    android:id="@+id/left_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:background="@drawable/left_arrow"
+    ></TextView>
+
+<TextView
+    android:id="@+id/right_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/right_arrow"
+    ></TextView>
+
+<TextView
+    android:id="@+id/home_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/home"
+    ></TextView>
+        
+</RelativeLayout>
