@@ -18,7 +18,7 @@
    "level_3": {"colors":["blue","grey","purple","red","white"]},
    "level_4": {"colors":["blue","orange","red","white","brown"]},
    "level_5": {"colors":["blue","red","white","orange","brown"]},
-   "level_6": {"colors":["blue","green","grey","red","white"]},
+   "level_6": {"colors":["blue","green","grey","red","white","orange"]},
    "level_7": {"colors":["blue","grey","orange","purple","white"]},
    "level_8": {"colors":["blue","green","grey","orange","red","white"]},
    "level_9": {"colors":["blue","grey","orange","red","white"]},

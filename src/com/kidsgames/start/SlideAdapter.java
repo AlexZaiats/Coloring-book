@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.drawingfun.R;
 import com.kidsgames.start.DrawerSliderActivity.DetailOnPageChangeListener;
+import com.vikinc.coloring.R;
 
 public class SlideAdapter extends PagerAdapter {
 

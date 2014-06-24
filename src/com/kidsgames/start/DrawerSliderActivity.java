@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.example.drawingfun.DrawerActivity;
-import com.example.drawingfun.R;
+import com.vikinc.coloring.R;
 
 public class DrawerSliderActivity extends Activity implements OnClickListener {
 
@@ -34,12 +34,7 @@ public class DrawerSliderActivity extends Activity implements OnClickListener {
         findViewById(R.id.right_arrow).setOnClickListener(this);
 		findViewById(R.id.home_button).setOnClickListener(this);
 		packName = getIntent().getStringExtra("pack");
-	}
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+		
         mPager = (MyPager) findViewById(R.id.pager);
 
         String json = ResourceId.getJson(this,  packName);
@@ -66,6 +61,12 @@ public class DrawerSliderActivity extends Activity implements OnClickListener {
         }
 
         mPager.setAdapter(mAdapter);
+        
+	}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 
