@@ -36,6 +36,7 @@
 		<activity android:name="com.example.drawingfun.DrawerActivity"
 		    android:screenOrientation="landscape"
 		    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+		    android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
 		    ></activity>
 		<activity android:name="com.kidsgames.start.DrawerSliderActivity"
 		    android:screenOrientation="landscape"

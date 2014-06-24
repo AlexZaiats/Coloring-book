@@ -67,7 +67,8 @@ public class DrawerSliderActivity extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-
+        mAdapter.refresh();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

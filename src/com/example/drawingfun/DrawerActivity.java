@@ -43,7 +43,7 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	private String packName;
 	private int idHelp;
 	private ImageView imageViewHelp;
-
+	private ImageView level_finished;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +81,10 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		imageViewHelp.setImageResource(idHelp);
 
 		imageViewHelp.setVisibility(View.GONE);
+		
+		level_finished = (ImageView) findViewById(R.id.level_finished);
+		level_finished.setVisibility(View.GONE);
+		
 		Display display = getWindowManager().getDefaultDisplay();
 		int height = display.getHeight(); // deprecated
 		height = (height / 5) * 3;
@@ -291,6 +295,25 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		}
 	};
 
+	AnimationListener finish_anim = new AnimationListener() {
+
+		@Override
+		public void onAnimationStart(Animation animation) {
+			level_finished.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+
+		}
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+			
+		}
+	};
+
+	
 	@Override
 	public void onClick(View view) {
 
@@ -315,6 +338,16 @@ public class DrawerActivity extends Activity implements OnClickListener {
 			break;
 		}
 
+	}
+	
+	public void finish_anim()
+	{
+		Animation animFadein = AnimationUtils.loadAnimation(
+				getApplicationContext(), R.anim.slide_finish);
+		level_finished.setVisibility(View.VISIBLE);
+		animFadein.setAnimationListener(finish_anim);
+
+		level_finished.startAnimation(animFadein);
 	}
 
 	private double getInches() {

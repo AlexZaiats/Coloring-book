@@ -53,6 +53,23 @@ public class SlideAdapter extends PagerAdapter {
 		  this.packName = packName;
 	  }
 
+	  public void refresh()
+	  {
+
+			String levels = prefs.getString(packName, null);
+			levelsList = new ArrayList<Integer>();
+			if (levels != null)
+			{
+				String[] everyLevel = levels.split(",");
+				for (int i = 0 ; i < everyLevel.length ; i++)
+				{
+					int lv = Integer.parseInt(everyLevel[i]);
+					levelsList.add(lv);
+				}
+			}
+			notifyDataSetChanged();
+	  }
+	  
 	  @Override
 	  public int getItemPosition (Object object)
 	  {

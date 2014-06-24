@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -57,6 +58,8 @@ public class DrawingView extends View {
 	private int w, h;
 	private int screenW, screenH;
 
+	private boolean isFinished;
+	
 	public DrawingView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setupDrawing();
@@ -96,14 +99,22 @@ public class DrawingView extends View {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 
 		if (bitmapArray != null) {
+			
+	
 			animal = BitmapFactory.decodeResource(getResources(),
 					bitmapArray[0]);
+			
 			double difference = (double) animal.getHeight()
 					/ (double) animal.getWidth();
 
-			int tmpH = (int) (screenH * 0.95);
+			double multyply = 0.95;
+			
+			if (w < 600)
+				multyply = 0.9;
+			
+			int tmpH = (int) (screenH * multyply);
 			int tmpW = (int) (tmpH / difference);
-			animal = Bitmap.createScaledBitmap(animal, tmpW, tmpH, false);
+			animal = Bitmap.createScaledBitmap(animal, tmpW, tmpH, true);
 
 			this.w = tmpW;
 			this.h = tmpH;
@@ -193,7 +204,13 @@ public class DrawingView extends View {
 			}
 
 			if (colorsName.size() == 0) {
-				Toast.makeText(context, context.getString(R.string.level_finished), Toast.LENGTH_LONG).show();
+			//	Toast.makeText(context, context.getString(R.string.level_finished), Toast.LENGTH_LONG).show();
+				if (!isFinished)
+				{
+					activity.finish_anim();
+					isFinished = true;
+				}
+				
 				SharedPreferences prefs = context.getSharedPreferences(
 						"com.bublecat.drawer", Activity.MODE_PRIVATE);
 

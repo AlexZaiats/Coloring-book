@@ -149,4 +149,13 @@
         android:layout_alignParentRight="true"
        
         ></ImageView>
+    
+       <ImageView
+        android:id="@+id/level_finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/level_finished"
+        android:layout_alignParentTop="true"
+       
+        ></ImageView>
 </RelativeLayout>
