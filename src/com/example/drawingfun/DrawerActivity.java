@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -20,7 +21,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.internal.di;
 import com.kidsgames.start.ResourceId;
+import com.plattysoft.leonids.ParticleSystem;
 import com.vikinc.coloring.R;
 
 /**
@@ -44,6 +47,9 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	private int idHelp;
 	private ImageView imageViewHelp;
 	private ImageView level_finished;
+	
+	private int screenH, screenW;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +93,10 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		
 		Display display = getWindowManager().getDefaultDisplay();
 		int height = display.getHeight(); // deprecated
+		
+		screenW = display.getWidth();
+		screenH = display.getHeight();
+		
 		height = (height / 5) * 3;
 
 		imageViewHelp.setLayoutParams(new RelativeLayout.LayoutParams(height,
@@ -317,6 +327,8 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 
+//		finish_anim();
+		
 		switch (view.getId()) {
 		case R.id.home_btn:
 			onBackPressed();
@@ -348,6 +360,26 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		animFadein.setAnimationListener(finish_anim);
 
 		level_finished.startAnimation(animFadein);
+		
+		int count = (int)(15*Math.random()+8);
+		for (int i = 0; i < count ; i++)
+		{
+			int id_image = 0;
+			if (i % 2 == 0)
+				id_image = R.drawable.star_pink;
+			else
+				id_image = R.drawable.star_white;
+			
+			ParticleSystem ps = new ParticleSystem(this, 100, id_image, 800);
+			ps.setScaleRange(0.7f, 1.3f);
+			ps.setSpeedRange(0.2f, 0.5f);
+			ps.setRotationSpeedRange(90, 180);
+			ps.setFadeOut(200, new AccelerateInterpolator());
+			int xStart = (int)(screenW*Math.random());
+			int yStart = (int)(screenH*Math.random());
+			ps.oneShot(xStart,yStart, 70);
+		}
+		
 	}
 
 	private double getInches() {

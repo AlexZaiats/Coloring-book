@@ -307,6 +307,7 @@ public class DrawingView extends View {
 	}
 
 	public void setBrushColor(int colorId) {
+		
 		switch (colorId) {
 		case R.id.first_color:
 			color = constColors.get(0);
