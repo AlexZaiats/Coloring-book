@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.bugsense.trace.BugSenseHandler;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -27,8 +28,8 @@ import com.vikinc.coloring.R;
 
 public class MainMenu extends Activity implements OnClickListener{
 	
-//	static final String ITEM_SKU = "ua.coloring.pack2";
-	static final String ITEM_SKU ="buy.pack2";
+	static final String ITEM_SKU = "com.pack2";
+//	static final String ITEM_SKU ="buy.pack2";
 //	static final String ITEM_SKU = "android.test.purchased";
 	
 	@Override
@@ -46,6 +47,8 @@ public class MainMenu extends Activity implements OnClickListener{
 		
         Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
         tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, "Home Screen").build());
+        
+        BugSenseHandler.initAndStartSession(MainMenu.this, "718d6664");
         
 	}
 
@@ -170,9 +173,7 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		try {
 
-			Bundle buyIntentBundle = mService.getBuyIntent(3, getPackageName(),
-					ITEM_SKU, "inapp",
-					"bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
+			Bundle buyIntentBundle = mService.getBuyIntent(3, getPackageName(),ITEM_SKU, "inapp","bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
 			int s = buyIntentBundle.getInt("RESPONSE_CODE");
 			switch (s) {
 			case 0:
