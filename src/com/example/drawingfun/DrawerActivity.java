@@ -21,6 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.internal.di;
 import com.kidsgames.start.ResourceId;
 import com.plattysoft.leonids.ParticleSystem;
@@ -49,6 +53,7 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	private ImageView level_finished;
 	
 	private int screenH, screenW;
+	private int level;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,7 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		packName = getIntent().getStringExtra("pack");
 		drawView.setPack(packName);
 
-		int level = getIntent().getIntExtra("level", 1);
+		level = getIntent().getIntExtra("level", 1);
 
 		idHelp = ResourceId.getResId("level" + level + "_color_" + packName,
 				ResourceId.DRAWABLE, this);
@@ -131,6 +136,14 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		} catch (Exception e) {
 
 		}
+		
+        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
+
+        tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, "Drawer Screen_"+ packName +"_" + level).build());
+
+        tracker.send(MapBuilder
+        	    .createEvent("Level",  packName, "start_drawing_"+level, null)
+        	    .build());
 	}
 
 	public void setActiveColor(int pos, String color) {
@@ -327,8 +340,6 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 
-//		finish_anim();
-		
 		switch (view.getId()) {
 		case R.id.home_btn:
 			onBackPressed();
@@ -361,7 +372,8 @@ public class DrawerActivity extends Activity implements OnClickListener {
 
 		level_finished.startAnimation(animFadein);
 		
-		int count = (int)(15*Math.random()+8);
+		int count = screenH / 100;
+		
 		for (int i = 0; i < count ; i++)
 		{
 			int id_image = 0;
@@ -379,6 +391,11 @@ public class DrawerActivity extends Activity implements OnClickListener {
 			int yStart = (int)(screenH*Math.random());
 			ps.oneShot(xStart,yStart, 70);
 		}
+		
+        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
+        tracker.send(MapBuilder
+        		 .createEvent("Level", packName, "finish_drawing_"+level, null)
+        	    .build());
 		
 	}
 

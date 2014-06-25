@@ -19,12 +19,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.android.vending.billing.IInAppBillingService;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.Tracker;
 import com.vikinc.coloring.R;
 
 public class MainMenu extends Activity implements OnClickListener{
 	
 //	static final String ITEM_SKU = "ua.coloring.pack2";
-	static final String ITEM_SKU = "android.test.purchased";
+	static final String ITEM_SKU ="buy.pack2";
+//	static final String ITEM_SKU = "android.test.purchased";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class MainMenu extends Activity implements OnClickListener{
 		findViewById(R.id.pack1_button).setOnClickListener(this);
 		findViewById(R.id.pack2_button).setOnClickListener(this);
 		
+        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
+        tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, "Home Screen").build());
+        
 	}
 
 	@Override
@@ -52,8 +60,21 @@ public class MainMenu extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.pack2_button:
+			
+	        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
+	        tracker.send(MapBuilder
+	        	    .createEvent("Buy", "pack", "try_to_buy", null)
+	        	    .build());
+	        
 			if (deviceHasGoogleAccount())
 				buyClick(v);
+			else
+			{
+		       
+		        tracker.send(MapBuilder
+		        	    .createEvent("Buy", "pack", "no_account", null)
+		        	    .build());
+			}
 			/*
 			intent = new Intent(this, DrawerSliderActivity.class);
 			intent.putExtra("pack", "pack2");
@@ -109,6 +130,12 @@ public class MainMenu extends Activity implements OnClickListener{
 					Intent intent = new Intent(this, DrawerSliderActivity.class);
 					intent.putExtra("pack", "pack2");
 					startActivity(intent);
+					
+			        Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
+			        tracker.send(MapBuilder
+			        	    .createEvent("Buy", "pack", "item_bouth", null)
+			        	    .build());
+			        
 					
 		         //   int response = mService.consumePurchase(3, getPackageName(), jo.getString("purchaseToken"));
 		        //    Log.d("Likers" , "Response : "  +response);
