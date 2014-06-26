@@ -28,8 +28,8 @@ import com.vikinc.coloring.R;
 
 public class MainMenu extends Activity implements OnClickListener{
 	
-	static final String ITEM_SKU = "com.pack2";
-//	static final String ITEM_SKU ="buy.pack2";
+//	static final String ITEM_SKU = "com.pack2";
+	static final String ITEM_SKU ="buy.pack2";
 //	static final String ITEM_SKU = "android.test.purchased";
 	
 	@Override

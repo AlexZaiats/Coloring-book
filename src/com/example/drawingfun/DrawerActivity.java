@@ -20,12 +20,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.Tracker;
-import com.google.android.gms.internal.di;
 import com.kidsgames.start.ResourceId;
 import com.plattysoft.leonids.ParticleSystem;
 import com.vikinc.coloring.R;
@@ -51,6 +51,7 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	private int idHelp;
 	private ImageView imageViewHelp;
 	private ImageView level_finished;
+	private Button homeBtn;
 	
 	private int screenH, screenW;
 	private int level;
@@ -80,7 +81,9 @@ public class DrawerActivity extends Activity implements OnClickListener {
 		newBtn = (Button) findViewById(R.id.new_btn);
 		newBtn.setOnClickListener(this);
 
-		findViewById(R.id.home_btn).setOnClickListener(this);
+		homeBtn = (Button)findViewById(R.id.home_btn);
+		homeBtn.setOnClickListener(this);
+		
 		packName = getIntent().getStringExtra("pack");
 		drawView.setPack(packName);
 
@@ -339,7 +342,7 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onClick(View view) {
-
+		
 		switch (view.getId()) {
 		case R.id.home_btn:
 			onBackPressed();
@@ -391,6 +394,12 @@ public class DrawerActivity extends Activity implements OnClickListener {
 			int yStart = (int)(screenH*Math.random());
 			ps.oneShot(xStart,yStart, 70);
 		}
+		
+		
+		final Animation scale = AnimationUtils.loadAnimation(
+				getApplicationContext(), R.anim.scale_anim);
+
+		homeBtn.startAnimation(scale);
 		
         Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
         tracker.send(MapBuilder
