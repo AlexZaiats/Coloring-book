@@ -2,8 +2,8 @@ package com.kidsgames.start;
 
 
 import android.annotation.SuppressLint;
+
 import android.content.Context;
-import android.util.Log;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
@@ -20,7 +20,8 @@ public class FixedSpeedScroller extends Scroller {
         super(context, interpolator);
     }
 
-    @SuppressLint("NewApi")
+ 
+	@SuppressLint("NewApi")
 	public FixedSpeedScroller(Context context, Interpolator interpolator, boolean flywheel) {
         super(context, interpolator, flywheel);
     }

@@ -6,6 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,7 +25,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.GoogleAnalytics;
@@ -55,14 +59,19 @@ public class DrawerActivity extends Activity implements OnClickListener {
 	
 	private int screenH, screenW;
 	private int level;
+	SharedPreferences prefs;
 	
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		drawView = (DrawingView) findViewById(R.id.drawing);
-
+		this.activity = this;
+		
+		prefs = getSharedPreferences("com.bublecat.drawer", Activity.MODE_PRIVATE);
+		
 		if (getInches() < 6.5)
 			mediumBrush = getResources().getInteger(R.integer.medium_size);
 		else
@@ -384,15 +393,18 @@ public class DrawerActivity extends Activity implements OnClickListener {
 				id_image = R.drawable.star_pink;
 			else
 				id_image = R.drawable.star_white;
-			
-			ParticleSystem ps = new ParticleSystem(this, 100, id_image, 800);
-			ps.setScaleRange(0.7f, 1.3f);
-			ps.setSpeedRange(0.2f, 0.5f);
-			ps.setRotationSpeedRange(90, 180);
-			ps.setFadeOut(200, new AccelerateInterpolator());
-			int xStart = (int)(screenW*Math.random());
-			int yStart = (int)(screenH*Math.random());
-			ps.oneShot(xStart,yStart, 70);
+			try {
+				ParticleSystem ps = new ParticleSystem(this, 100, id_image, 800);
+				ps.setScaleRange(0.7f, 1.3f);
+				ps.setSpeedRange(0.2f, 0.5f);
+				ps.setRotationSpeedRange(90, 180);
+				ps.setFadeOut(200, new AccelerateInterpolator());
+				int xStart = (int) (screenW * Math.random());
+				int yStart = (int) (screenH * Math.random());
+				ps.oneShot(xStart, yStart, 70);
+			} catch (Exception e) {
+
+			}
 		}
 		
 		
@@ -400,6 +412,65 @@ public class DrawerActivity extends Activity implements OnClickListener {
 				getApplicationContext(), R.anim.scale_anim);
 
 		homeBtn.startAnimation(scale);
+
+		int levelsCount = prefs.getInt("finishedLevels" , 0);
+		levelsCount++;
+		boolean canRemind = prefs.getBoolean("canRemind" , true);
+		
+		if (levelsCount % 3 == 0 && canRemind)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setTitle(getString(R.string.rate_us));
+            builder.setMessage(getString(R.string.please_rate));
+            builder.setInverseBackgroundForced(true);
+            builder.setPositiveButton(getString(R.string.rate_it),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                int which) {
+                        	prefs.edit().putBoolean("canRemind", false).commit();
+                        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                            dialog.dismiss();
+                            
+        			        Tracker tracker = GoogleAnalytics.getInstance(activity).getTracker("UA-51610813-3");
+        			        tracker.send(MapBuilder
+        			        	    .createEvent("Rate", "alert", "rate_button", null)
+        			        	    .build());
+        			        
+                        }
+                    });
+            builder.setNegativeButton(getString(R.string.no_thanks),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                int which) {
+                        	prefs.edit().putBoolean("canRemind", false).commit();
+                            dialog.dismiss();
+                            
+        			        Tracker tracker = GoogleAnalytics.getInstance(activity).getTracker("UA-51610813-3");
+        			        tracker.send(MapBuilder
+        			        	    .createEvent("Rate", "alert", "dismiss_button", null)
+        			        	    .build());
+                        }
+                    });
+            
+            builder.setNeutralButton(getString(R.string.remind_me_later),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        	dialog.dismiss();
+        			        Tracker tracker = GoogleAnalytics.getInstance(activity).getTracker("UA-51610813-3");
+        			        tracker.send(MapBuilder
+        			        	    .createEvent("Rate", "alert", "remind_later", null)
+        			        	    .build());
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+		}
+		
+		prefs.edit().putInt("finishedLevels" , levelsCount).commit();
 		
         Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
         tracker.send(MapBuilder

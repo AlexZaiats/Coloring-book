@@ -17,6 +17,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.bugsense.trace.BugSenseHandler;
@@ -36,6 +38,8 @@ public class MainMenu extends Activity implements OnClickListener{
 //	static final String ITEM_SKU = "android.test.purchased";
 //	static final String ITEM_SKU = "pack2";
 	
+	private TextView lock;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,6 +51,8 @@ public class MainMenu extends Activity implements OnClickListener{
 		 
 		findViewById(R.id.pack1_button).setOnClickListener(this);
 		findViewById(R.id.pack2_button).setOnClickListener(this);
+		
+		lock = (TextView) findViewById(R.id.lock_view);
 		
         Tracker tracker = GoogleAnalytics.getInstance(this).getTracker("UA-51610813-3");
         tracker.send(MapBuilder.createAppView().set(Fields.SCREEN_NAME, "Home Screen").build());
@@ -75,7 +81,7 @@ public class MainMenu extends Activity implements OnClickListener{
 				buyClick(v);
 			else
 			{
-		       
+		       Toast.makeText(this, R.string.google_acc, Toast.LENGTH_SHORT).show();
 		        tracker.send(MapBuilder
 		        	    .createEvent("Buy", "pack", "no_account", null)
 		        	    .build());
@@ -108,7 +114,7 @@ public class MainMenu extends Activity implements OnClickListener{
 
 				   for (int i = 0; i < purchaseDataList.size(); ++i) {
 				      String purchaseData = purchaseDataList.get(i);
-		
+				      lock.setVisibility(View.GONE);
 				   } 
 
 				   // if continuationToken != null, call getPurchases again 
@@ -126,7 +132,7 @@ public class MainMenu extends Activity implements OnClickListener{
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		 if (requestCode == 1001) {           
+		 if (requestCode == 1001 && data != null) {           
 		      String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
 		      if (resultCode == Activity.RESULT_OK) {
 		         try {
@@ -142,6 +148,8 @@ public class MainMenu extends Activity implements OnClickListener{
 			        tracker.send(MapBuilder
 			        	    .createEvent("Buy", "pack", "item_bouth", null)
 			        	    .build());
+			        
+			        lock.setVisibility(View.GONE);
 			        
 		          }
 		          catch (Exception e) {
