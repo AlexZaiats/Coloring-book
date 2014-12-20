@@ -1,21 +1,14 @@
-package com.kidsgames.start;
+package com.kidsgames.utils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 
 import android.content.Context;
-import android.util.Log;
 
 public class ResourceId {
 	public static String DRAWABLE = "drawable"; 
-	public static String ID = "id"; 
-	
+
 	public static int getResId(String variableName,String type, Context context) {
 		return context.getResources().getIdentifier(variableName, 
 				type, context.getPackageName());
@@ -43,7 +36,7 @@ public class ResourceId {
 		}
 		catch (Exception e)
 		{
-			Log.d("Buble" , "" + e);
+			e.printStackTrace();
 			return null;
 		}
 	}

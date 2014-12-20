@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="coloring-book-cats-advanture">
+    <output-path>$PROJECT_DIR$/out/artifacts/coloring_book_cats_advanture</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyAlias" value="alias_name" />
+        <option name="keyPassword" value="Qmxvb2RyYWlu" />
+        <option name="keyStorePassword" value="Qmxvb2RyYWlu" />
+        <option name="keyStoreUrl" value="file://$USER_HOME$/tmp_jdk/my-release-key.keystore" />
+        <option name="proGuardCfgFiles">
+          <list>
+            <option value="file://%MODULE_SDK_HOME%/tools/proguard/proguard-android.txt" />
+          </list>
+        </option>
+        <option name="signingMode" value="RELEASE_SIGNED" />
+      </options>
+    </properties>
+    <root id="archive" name="coloring-book-cats-advanture.apk">
+      <element id="android-final-package" facet="coloring-book-cats-advanture/android/Android" />
+    </root>
+  </artifact>
+</component>

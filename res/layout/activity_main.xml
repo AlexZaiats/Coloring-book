@@ -1,12 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".DrawerActivity" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -26,7 +24,7 @@
             android:layout_weight="0.05"
             android:gravity="center" >
 
-            <com.example.drawingfun.DrawingView
+            <com.kidsgames.gamebase.DrawingView
                 android:id="@+id/drawing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,7 +118,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/new_btn"
+        android:id="@+id/help_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -148,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
        
-        ></ImageView>
+        />
     
        <ImageView
         android:id="@+id/level_finished"
@@ -157,5 +155,5 @@
         android:src="@drawable/level_finished"
         android:layout_centerInParent="true"
        
-        ></ImageView>
+        />
 </RelativeLayout>
