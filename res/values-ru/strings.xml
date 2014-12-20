@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     	<string name="level_finished">Уровень пройден!</string>
+    		<string name="rate_us">Нравится эта игра?</string>
+	<string name="please_rate">Пожалуйста, оцените ее на Google Play!</string>
+	<string name="rate_it">Оценить!</string>
+	<string name="no_thanks">Нет, спасибо</string>
+	<string name="remind_me_later">Напомнить позже</string>
+	<string name="google_acc">Вы не можете совершить покупку без Google аккаунта.</string>
 </resources>

@@ -13,4 +13,10 @@
 	<string name="med">Medium</string>
 	<string name="lrg">Large</string>
 	<string name="level_finished">Level finished!</string>
+	<string name="rate_us">Like this game?</string>
+	<string name="please_rate">Please rate it in Google Play!</string>
+	<string name="rate_it">Rate it!</string>
+	<string name="no_thanks">No, thanks</string>
+	<string name="remind_me_later">Remind me later</string>
+	<string name="google_acc">You cannot purchase this item without Google account.</string>
 </resources>
